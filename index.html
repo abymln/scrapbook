@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -35,6 +35,7 @@ body{
 
 h1{color:#ff3f8b;font-size:32px;}
 p{font-size:20px;line-height:1.7;color:#444;}
+
 img{
   width:90%;
   max-width:420px;
@@ -50,10 +51,14 @@ input{
   text-align:center;
 }
 
-.hint{
-  font-size:16px;
-  color:#ff6fae;
-  margin-top:10px;
+button{
+  margin-top:15px;
+  padding:12px 30px;
+  font-size:18px;
+  border:none;
+  border-radius:30px;
+  background:#ff6fae;
+  color:white;
 }
 
 audio{display:none;}
@@ -84,7 +89,7 @@ audio{display:none;}
   <h1>🔒 Rahasia Cinta</h1>
   <p>Masukkan tanggal spesial kita 🤍</p>
   <input type="password" id="pw" placeholder="dd-mm-yyyy">
-  <p class="hint">Tekan Enter lalu geser ➜</p>
+  <button onclick="unlock()">Masuk 💗</button>
 </div>
 
 <!-- PAGE 1 -->
@@ -139,50 +144,56 @@ audio{display:none;}
 </div>
 
 <script>
-let index=0;
-let startX=0;
-let unlocked=false;
-const book=document.getElementById("book");
-const music=document.getElementById("music");
+let index = 0;
+let startX = 0;
+let unlocked = false;
 
-document.getElementById("pw").addEventListener("keydown",e=>{
-  if(e.key==="Enter"){
-    if(e.target.value==="10-12-2025"){
-      unlocked=true;
-      alert("Berhasil 💖 Sekarang geser ya");
-    }else{
-      alert("Password salah 😭");
-    }
+const book = document.getElementById("book");
+const music = document.getElementById("music");
+
+function unlock(){
+  const pw = document.getElementById("pw").value;
+  if(pw === "10-12-2025"){
+    unlocked = true;
+    index = 1;
+    book.style.transform = "translateX(-100vw)";
+
+    // AUTOPLAY SAH (karena klik tombol)
+    music.play();
+
+    alert("Berhasil 💖 Geser ya");
+  } else {
+    alert("Password salah 😭");
   }
+}
+
+document.addEventListener("touchstart", e=>{
+  if(!unlocked) return;
+  startX = e.touches[0].clientX;
 });
 
-document.addEventListener("touchstart",e=>{
-  startX=e.touches[0].clientX;
-});
+document.addEventListener("touchend", e=>{
+  if(!unlocked) return;
 
-document.addEventListener("touchend",e=>{
-  let endX=e.changedTouches[0].clientX;
+  let endX = e.changedTouches[0].clientX;
 
-  if(startX-endX>50 && index<5){
-    if(index===0 && !unlocked) return;
-
+  if(startX - endX > 50 && index < 5){
     index++;
-    book.style.transform=`translateX(-${index*100}vw)`;
-    music.play(); // AUTOPLAY setelah swipe
+    book.style.transform = `translateX(-${index*100}vw)`;
   }
 
-  if(endX-startX>50 && index>0){
+  if(endX - startX > 50 && index > 1){
     index--;
-    book.style.transform=`translateX(-${index*100}vw)`;
+    book.style.transform = `translateX(-${index*100}vw)`;
   }
 });
 
 setInterval(()=>{
-  let h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="💗";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(3+Math.random()*3)+"s";
+  let h = document.createElement("div");
+  h.className = "heart";
+  h.innerHTML = "💗";
+  h.style.left = Math.random()*100 + "vw";
+  h.style.animationDuration = (3 + Math.random()*3) + "s";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),6000);
 },350);
