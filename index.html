@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -14,16 +14,16 @@ body{
 }
 
 .book{
-  width:100vw;
+  display:flex;
+  width:600vw;
   height:100vh;
-  perspective:1200px;
+  transition:transform .6s ease;
 }
 
 .page{
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:#fff0f6;
+  width:100vw;
+  height:100vh;
+  flex-shrink:0;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -31,48 +31,32 @@ body{
   text-align:center;
   padding:25px;
   box-sizing:border-box;
-  transform-origin:left;
-  transition:transform 0.8s;
 }
 
-.page.flipped{
-  transform:rotateY(-180deg);
-}
-
-h1{
-  color:#ff3f8b;
-  font-size:32px;
-}
-
-p{
-  font-size:20px;
-  color:#444;
-  line-height:1.7;
-  max-width:95%;
-}
-
+h1{color:#ff3f8b;font-size:32px;}
+p{font-size:20px;line-height:1.7;color:#444;}
 img{
   width:90%;
   max-width:420px;
   border-radius:25px;
-  box-shadow:0 15px 35px rgba(255,0,120,0.4);
-  margin:20px 0;
+  box-shadow:0 15px 35px rgba(255,0,120,.4);
 }
 
-button{
-  margin-top:20px;
-  padding:12px 30px;
+input{
+  padding:12px;
   font-size:18px;
+  border-radius:12px;
   border:none;
-  border-radius:30px;
-  background:#ff6fae;
-  color:white;
+  text-align:center;
 }
 
-.char{
-  font-size:42px;
-  margin-bottom:10px;
+.hint{
+  font-size:16px;
+  color:#ff6fae;
+  margin-top:10px;
 }
+
+audio{display:none;}
 
 .heart{
   position:fixed;
@@ -93,48 +77,40 @@ button{
   <source src="pelangi.mp3" type="audio/mpeg">
 </audio>
 
-<div class="book">
+<div class="book" id="book">
 
-<!-- PASSWORD -->
-<div class="page" id="page0">
-  <div class="char">🔒💗</div>
-  <h1>Password Cinta</h1>
-  <p>Masukkan tanggal spesial kita</p>
-  <input id="pw" type="password" style="padding:10px;font-size:18px;border-radius:12px;border:none;">
-  <button onclick="unlock()">Masuk 💖</button>
+<!-- PAGE 0 PASSWORD -->
+<div class="page">
+  <h1>🔒 Rahasia Cinta</h1>
+  <p>Masukkan tanggal spesial kita 🤍</p>
+  <input type="password" id="pw" placeholder="dd-mm-yyyy">
+  <p class="hint">Tekan Enter lalu geser ➜</p>
 </div>
 
 <!-- PAGE 1 -->
-<div class="page" id="page1">
-  <div class="char">🧸💞</div>
-  <h1>Our Love Story</h1>
+<div class="page">
+  <h1>Our Love Story 💖</h1>
   <p><b>Abiyyy & Hannyyy</b></p>
-  <p>Ini bukan cuma website…<br>ini bukti cinta 🤍</p>
-  <button onclick="flip(1)">Balik ➜</button>
+  <p>Ini bukan cuma website…<br>ini bukti cintaku.</p>
 </div>
 
 <!-- PAGE 2 -->
-<div class="page" id="page2">
-  <div class="char">📸🐻</div>
-  <h1>Foto Kita</h1>
+<div class="page">
+  <h1>Foto Kita 📸</h1>
   <img src="foto1.jpg">
-  <button onclick="flip(2)">Balik ➜</button>
 </div>
 
 <!-- PAGE 3 -->
-<div class="page" id="page3">
-  <div class="char">💌🌸</div>
+<div class="page">
   <p>
     Sayang, terima kasih sudah sabar dan selalu ada di titik rendah maupun tinggiku.
     Kamu selalu jadi alasan aku buat tersenyum setiap hari.
     Aku ngerasa jadi orang paling beruntung karena kamu memilih aku.
   </p>
-  <button onclick="flip(3)">Balik ➜</button>
 </div>
 
 <!-- PAGE 4 -->
-<div class="page" id="page4">
-  <div class="char">🩷🫶</div>
+<div class="page">
   <p>
     Terimakasih kamu udah jadi rumahku, tempatku pulang,
     tempatku bercerita, dan penyemangatku.
@@ -146,32 +122,60 @@ button{
     Janji ya jangan kemana-mana.
     Makasihhhhh buat semuanya SAYANGGKUUU 🤍
   </p>
+</div>
 
+<!-- PAGE 5 -->
+<div class="page">
+  <h1>I Choose You 💍</h1>
   <p><b>
-    I always love you no matter what the condition is,<br>
-    I love you in every universe,<br>
-    I loveeee youuu forever,<br>
+    I always love you no matter what the condition is.<br>
+    I love you in every universe.<br>
+    I loveeee youuu forever.<br>
     I SEE YOU 🩷💖💞💗
   </b></p>
+  <p>— Abiyyy 🤍</p>
 </div>
 
 </div>
 
 <script>
-let current=0;
+let index=0;
+let startX=0;
+let unlocked=false;
+const book=document.getElementById("book");
+const music=document.getElementById("music");
 
-function unlock(){
-  if(pw.value==="10-12-2025"){
-    flip(0);
-    music.play();
-  }else{
-    alert("Password salah 😭");
+document.getElementById("pw").addEventListener("keydown",e=>{
+  if(e.key==="Enter"){
+    if(e.target.value==="10-12-2025"){
+      unlocked=true;
+      alert("Berhasil 💖 Sekarang geser ya");
+    }else{
+      alert("Password salah 😭");
+    }
   }
-}
+});
 
-function flip(n){
-  document.getElementById("page"+n).classList.add("flipped");
-}
+document.addEventListener("touchstart",e=>{
+  startX=e.touches[0].clientX;
+});
+
+document.addEventListener("touchend",e=>{
+  let endX=e.changedTouches[0].clientX;
+
+  if(startX-endX>50 && index<5){
+    if(index===0 && !unlocked) return;
+
+    index++;
+    book.style.transform=`translateX(-${index*100}vw)`;
+    music.play(); // AUTOPLAY setelah swipe
+  }
+
+  if(endX-startX>50 && index>0){
+    index--;
+    book.style.transform=`translateX(-${index*100}vw)`;
+  }
+});
 
 setInterval(()=>{
   let h=document.createElement("div");
@@ -181,7 +185,7 @@ setInterval(()=>{
   h.style.animationDuration=(3+Math.random()*3)+"s";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),6000);
-},300);
+},350);
 </script>
 
 </body>
