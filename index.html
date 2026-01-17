@@ -2,152 +2,131 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Our Love Story</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Our Love Story</title>
+
 <style>
-body{
-  margin:0;
-  font-family:'Comic Sans MS', cursive;
-  background:linear-gradient(#ffd1e8,#fff);
-  overflow:hidden;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Comic Sans MS", cursive;
 }
 
-.book{
-  display:flex;
-  width:600vw;
-  height:100vh;
-  transition:transform .6s ease;
+body {
+  overflow: hidden;
+  background: linear-gradient(#ffd6e8, #ffeef5);
 }
 
-.page{
-  width:100vw;
-  height:100vh;
-  flex-shrink:0;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding:25px;
-  box-sizing:border-box;
+/* ===== BOOK ===== */
+.book {
+  display: flex;
+  width: 400vw;
+  height: 100vh;
+  transition: transform 0.7s ease;
 }
 
-h1{color:#ff3f8b;font-size:32px;}
-p{font-size:20px;line-height:1.7;color:#444;}
-
-img{
-  width:90%;
-  max-width:420px;
-  border-radius:25px;
-  box-shadow:0 15px 35px rgba(255,0,120,.4);
+.page {
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  flex-shrink: 0;
+  text-align: center;
 }
 
-input{
-  padding:12px;
-  font-size:18px;
-  border-radius:12px;
-  border:none;
-  text-align:center;
+/* ===== LOCK ===== */
+.locked {
+  pointer-events: none;
 }
 
-button{
-  margin-top:15px;
-  padding:12px 30px;
-  font-size:18px;
-  border:none;
-  border-radius:30px;
-  background:#ff6fae;
-  color:white;
+/* ===== PAGE STYLE ===== */
+h1, h2 {
+  color: #ff4f9a;
+  margin-bottom: 10px;
 }
 
-audio{display:none;}
-
-.heart{
-  position:fixed;
-  top:-10px;
-  font-size:22px;
-  animation:fall linear infinite;
+p {
+  color: #d63384;
+  font-size: 18px;
 }
 
-@keyframes fall{
-  to{transform:translateY(110vh);opacity:0;}
+img {
+  width: 80%;
+  max-width: 300px;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  margin-top: 15px;
+}
+
+/* ===== PASSWORD ===== */
+input {
+  padding: 12px;
+  border-radius: 20px;
+  border: none;
+  width: 70%;
+  text-align: center;
+  margin-top: 10px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  background: #ff4f9a;
+  color: white;
+  font-size: 16px;
 }
 </style>
 </head>
 
 <body>
 
-<audio id="music" loop>
-  <source src="pelangi.mp3" type="audio/mpeg">
-</audio>
+<audio id="music" src="pelangi.mp3" loop></audio>
 
-<div class="book" id="book">
+<div class="book locked" id="book">
 
-<!-- PAGE 0 PASSWORD -->
-<div class="page">
-  <h1>🔒 Rahasia Cinta</h1>
-  <p>Masukkan tanggal spesial kita 🤍</p>
-  <input type="password" id="pw" placeholder="dd-mm-yyyy">
-  <button onclick="unlock()">Masuk 💗</button>
-</div>
+  <!-- PAGE 1 -->
+  <div class="page">
+    <h1>🔒 Rahasia Cinta</h1>
+    <p>Masukkan tanggal spesial kita</p>
+    <input type="password" id="pw" placeholder="dd-mm-yyyy">
+    <br>
+    <button onclick="unlock()">Buka 💖</button>
+  </div>
 
-<!-- PAGE 1 -->
-<div class="page">
-  <h1>Our Love Story 💖</h1>
-  <p><b>Abiyyy & Hannyyy</b></p>
-  <p>Ini bukan cuma website…<br>ini bukti cintaku.</p>
-</div>
+  <!-- PAGE 2 -->
+  <div class="page">
+    <h1>Our Love Story 💕</h1>
+    <h2>Abiyyy & Hannyyy</h2>
+    <p>
+      I always love you no matter what the condition is,  
+      i love you in every universe,  
+      and i loveeee youuu forever 💖  
+      <br><br>
+      I SEE YOU 🩷💞
+    </p>
+  </div>
 
-<!-- PAGE 2 -->
-<div class="page">
-  <h1>Foto Kita 📸</h1>
-  <img src="foto1.jpg">
-</div>
+  <!-- PAGE 3 -->
+  <div class="page">
+    <h1>Foto Kita 📸</h1>
+    <img src="foto1.jpg">
+    <p>Kenangan kecil, rasa besar 💗</p>
+  </div>
 
-<!-- PAGE 3 -->
-<div class="page">
-  <p>
-    Sayang, terima kasih sudah sabar dan selalu ada di titik rendah maupun tinggiku.
-    Kamu selalu jadi alasan aku buat tersenyum setiap hari.
-    Aku ngerasa jadi orang paling beruntung karena kamu memilih aku.
-  </p>
-</div>
-
-<!-- PAGE 4 -->
-<div class="page">
-  <p>
-    Terimakasih kamu udah jadi rumahku, tempatku pulang,
-    tempatku bercerita, dan penyemangatku.
-    Aku bangga banget punya kamu.
-  </p>
-
-  <p>
-    Aku sayanggg bangettt samaa kamu hannyyykuuu.
-    Janji ya jangan kemana-mana.
-    Makasihhhhh buat semuanya SAYANGGKUUU 🤍
-  </p>
-</div>
-
-<!-- PAGE 5 -->
-<div class="page">
-  <h1>I Choose You 💍</h1>
-  <p><b>
-    I always love you no matter what the condition is.<br>
-    I love you in every universe.<br>
-    I loveeee youuu forever.<br>
-    I SEE YOU 🩷💖💞💗
-  </b></p>
-  <p>— Abiyyy 🤍</p>
-</div>
+  <!-- PAGE 4 -->
+  <div class="page">
+    <h1>I Choose You 💍</h1>
+    <p>Hari ini, besok, dan seterusnya</p>
+  </div>
 
 </div>
 
 <script>
 let index = 0;
-let startX = 0;
 let unlocked = false;
-
 const book = document.getElementById("book");
 const music = document.getElementById("music");
 
@@ -156,47 +135,32 @@ function unlock(){
   if(pw === "10-12-2025"){
     unlocked = true;
     index = 1;
+    book.classList.remove("locked");
     book.style.transform = "translateX(-100vw)";
-
-    // AUTOPLAY SAH (karena klik tombol)
     music.play();
-
-    alert("Berhasil 💖 Geser ya");
   } else {
     alert("Password salah 😭");
   }
 }
 
-document.addEventListener("touchstart", e=>{
+let startX = 0;
+
+document.addEventListener("touchstart", e => {
   if(!unlocked) return;
   startX = e.touches[0].clientX;
 });
 
-document.addEventListener("touchend", e=>{
+document.addEventListener("touchend", e => {
   if(!unlocked) return;
-
   let endX = e.changedTouches[0].clientX;
-
-  if(startX - endX > 50 && index < 5){
+  if(startX - endX > 50 && index < 3){
     index++;
-    book.style.transform = `translateX(-${index*100}vw)`;
   }
-
-  if(endX - startX > 50 && index > 1){
+  if(endX - startX > 50 && index > 0){
     index--;
-    book.style.transform = `translateX(-${index*100}vw)`;
   }
+  book.style.transform = `translateX(-${index * 100}vw)`;
 });
-
-setInterval(()=>{
-  let h = document.createElement("div");
-  h.className = "heart";
-  h.innerHTML = "💗";
-  h.style.left = Math.random()*100 + "vw";
-  h.style.animationDuration = (3 + Math.random()*3) + "s";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),6000);
-},350);
 </script>
 
 </body>
