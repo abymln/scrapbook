@@ -1,0 +1,48 @@
+body {
+  margin: 0;
+  font-family: 'Comic Sans MS', cursive;
+  background: linear-gradient(#ffd6e8, #fff);
+  overflow-x: hidden;   /* boleh geser samping */
+  overflow-y: auto;     /* BOLEH scroll ke bawah */
+}
+
+.hidden {
+  display: none;
+}
+
+#lock {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#lock input, button {
+  padding: 10px;
+  margin: 5px;
+}
+
+#isi {
+  display: flex;
+  width: 200vw;
+}
+
+.page {
+  width: 100vw;
+  min-height: 100vh;
+  text-align: center;
+  padding: 80px 20px;
+  box-sizing: border-box;
+}
+
+h1, h2, p {
+  max-width: 90%;
+  margin: 10px auto;
+}
+
+img {
+  width: 80%;
+  max-width: 300px;
+  border-radius: 20px;
+}
