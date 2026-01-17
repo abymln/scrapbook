@@ -1,167 +1,40 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Our Love Story</title>
-
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: "Comic Sans MS", cursive;
-}
-
-body {
-  overflow: hidden;
-  background: linear-gradient(#ffd6e8, #ffeef5);
-}
-
-/* ===== BOOK ===== */
-.book {
-  display: flex;
-  width: 400vw;
-  height: 100vh;
-  transition: transform 0.7s ease;
-}
-
-.page {
-  width: 100vw;
-  height: 100vh;
-  padding: 20px;
-  flex-shrink: 0;
-  text-align: center;
-}
-
-/* ===== LOCK ===== */
-.locked {
-  pointer-events: none;
-}
-
-/* ===== PAGE STYLE ===== */
-h1, h2 {
-  color: #ff4f9a;
-  margin-bottom: 10px;
-}
-
-p {
-  color: #d63384;
-  font-size: 18px;
-}
-
-img {
-  width: 80%;
-  max-width: 300px;
-  border-radius: 20px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-  margin-top: 15px;
-}
-
-/* ===== PASSWORD ===== */
-input {
-  padding: 12px;
-  border-radius: 20px;
-  border: none;
-  width: 70%;
-  text-align: center;
-  margin-top: 10px;
-}
-
-button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  border-radius: 20px;
-  border: none;
-  background: #ff4f9a;
-  color: white;
-  font-size: 16px;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>Rahasia Cinta 💖</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<audio id="music" src="pelangi.mp3" loop></audio>
+<!-- PASSWORD -->
+<div id="lock">
+  <h2>🔐 Rahasia Cinta</h2>
+  <input type="password" id="pass" placeholder="dd-mm-yyyy">
+  <button onclick="buka()">Masuk</button>
+  <p id="salah"></p>
+</div>
 
-<div class="book locked" id="book">
+<!-- ISI -->
+<div id="isi" class="hidden">
 
-  <!-- PAGE 1 -->
-  <div class="page">
-    <h1>🔒 Rahasia Cinta</h1>
-    <p>Masukkan tanggal spesial kita</p>
-    <input type="password" id="pw" placeholder="dd-mm-yyyy">
-    <br>
-    <button onclick="unlock()">Buka 💖</button>
-  </div>
+  <!-- LAGU -->
+  <audio id="musik" loop>
+    <source src="assets/lagu.mp3" type="audio/mpeg">
+  </audio>
 
-  <!-- PAGE 2 -->
-  <div class="page">
-    <h1>Our Love Story 💕</h1>
-    <h2>Abiyyy & Hannyyy</h2>
-    <p>
-      I always love you no matter what the condition is,  
-      i love you in every universe,  
-      and i loveeee youuu forever 💖  
-      <br><br>
-      I SEE YOU 🩷💞
-    </p>
-  </div>
+  <section class="page">
+    <h1>💞 Our Love Story</h1>
+    <p>Aku temenin sampai Hanny meleleh 💗</p>
+  </section>
 
-  <!-- PAGE 3 -->
-  <div class="page">
-    <h1>Foto Kita 📸</h1>
-    <img src="foto1.jpg">
-    <p>Kenangan kecil, rasa besar 💗</p>
-  </div>
-
-  <!-- PAGE 4 -->
-  <div class="page">
-    <h1>I Choose You 💍</h1>
-    <p>Hari ini, besok, dan seterusnya</p>
-  </div>
+  <section class="page">
+    <h2>📸 Foto Kita</h2>
+    <img src="assets/foto1.jpg">
+  </section>
 
 </div>
 
-<script>
-let index = 0;
-let unlocked = false;
-const book = document.getElementById("book");
-const music = document.getElementById("music");
-
-function unlock(){
-  const pw = document.getElementById("pw").value;
-  if(pw === "10-12-2025"){
-    unlocked = true;
-    index = 1;
-    book.classList.remove("locked");
-    book.style.transform = "translateX(-100vw)";
-    music.play();
-  } else {
-    alert("Password salah 😭");
-  }
-}
-
-let startX = 0;
-
-document.addEventListener("touchstart", e => {
-  if(!unlocked) return;
-  startX = e.touches[0].clientX;
-});
-
-document.addEventListener("touchend", e => {
-  if(!unlocked) return;
-  let endX = e.changedTouches[0].clientX;
-  if(startX - endX > 50 && index < 3){
-    index++;
-  }
-  if(endX - startX > 50 && index > 0){
-    index--;
-  }
-  book.style.transform = `translateX(-${index * 100}vw)`;
-});
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
