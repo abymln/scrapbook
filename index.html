@@ -13,19 +13,31 @@ body{
   overflow:hidden;
 }
 
-.page{
+.book{
   width:100vw;
   height:100vh;
-  display:none;
+  perspective:1200px;
+}
+
+.page{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:#fff0f6;
+  display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   text-align:center;
   padding:25px;
   box-sizing:border-box;
+  transform-origin:left;
+  transition:transform 0.8s;
 }
 
-.page.active{display:flex;}
+.page.flipped{
+  transform:rotateY(-180deg);
+}
 
 h1{
   color:#ff3f8b;
@@ -48,7 +60,7 @@ img{
 }
 
 button{
-  margin-top:25px;
+  margin-top:20px;
   padding:12px 30px;
   font-size:18px;
   border:none;
@@ -57,58 +69,72 @@ button{
   color:white;
 }
 
+.char{
+  font-size:42px;
+  margin-bottom:10px;
+}
+
 .heart{
   position:fixed;
   top:-10px;
-  color:#ff5fa2;
-  font-size:20px;
+  font-size:22px;
   animation:fall linear infinite;
 }
 
 @keyframes fall{
-  to{transform:translateY(110vh); opacity:0;}
+  to{transform:translateY(110vh);opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
+<audio id="music" loop>
+  <source src="pelangi.mp3" type="audio/mpeg">
+</audio>
+
+<div class="book">
+
 <!-- PASSWORD -->
-<div class="page active" id="pass">
-  <h1>🔒 Password</h1>
-  <p>Masukkan tanggal spesial kita 🤍</p>
-  <input type="password" id="pw" style="padding:10px;font-size:18px;border-radius:10px;border:none;">
-  <button onclick="cek()">Masuk 💗</button>
+<div class="page" id="page0">
+  <div class="char">🔒💗</div>
+  <h1>Password Cinta</h1>
+  <p>Masukkan tanggal spesial kita</p>
+  <input id="pw" type="password" style="padding:10px;font-size:18px;border-radius:12px;border:none;">
+  <button onclick="unlock()">Masuk 💖</button>
 </div>
 
 <!-- PAGE 1 -->
-<div class="page" id="p1">
-  <h1>Our Love Story 💖</h1>
+<div class="page" id="page1">
+  <div class="char">🧸💞</div>
+  <h1>Our Love Story</h1>
   <p><b>Abiyyy & Hannyyy</b></p>
-  <p>Geser perlahan yaa… ini khusus buat kamu 🤍</p>
-  <button onclick="next(1)">Next ➜</button>
+  <p>Ini bukan cuma website…<br>ini bukti cinta 🤍</p>
+  <button onclick="flip(1)">Balik ➜</button>
 </div>
 
 <!-- PAGE 2 -->
-<div class="page" id="p2">
-  <h1>Foto Kita 📸</h1>
+<div class="page" id="page2">
+  <div class="char">📸🐻</div>
+  <h1>Foto Kita</h1>
   <img src="foto1.jpg">
-  <button onclick="next(2)">Next ➜</button>
+  <button onclick="flip(2)">Balik ➜</button>
 </div>
 
 <!-- PAGE 3 -->
-<div class="page" id="p3">
-  <h1>Untuk Kamu 💌</h1>
+<div class="page" id="page3">
+  <div class="char">💌🌸</div>
   <p>
     Sayang, terima kasih sudah sabar dan selalu ada di titik rendah maupun tinggiku.
     Kamu selalu jadi alasan aku buat tersenyum setiap hari.
-    Aku ngerasa jadi orang paling beruntung di dunia karena kamu memilih aku.
+    Aku ngerasa jadi orang paling beruntung karena kamu memilih aku.
   </p>
-  <button onclick="next(3)">Next ➜</button>
+  <button onclick="flip(3)">Balik ➜</button>
 </div>
 
 <!-- PAGE 4 -->
-<div class="page" id="p4">
+<div class="page" id="page4">
+  <div class="char">🩷🫶</div>
   <p>
     Terimakasih kamu udah jadi rumahku, tempatku pulang,
     tempatku bercerita, dan penyemangatku.
@@ -118,7 +144,7 @@ button{
   <p>
     Aku sayanggg bangettt samaa kamu hannyyykuuu.
     Janji ya jangan kemana-mana.
-    Makasihhhh buat semuanya SAYANGGKUUU 🤍
+    Makasihhhhh buat semuanya SAYANGGKUUU 🤍
   </p>
 
   <p><b>
@@ -127,33 +153,32 @@ button{
     I loveeee youuu forever,<br>
     I SEE YOU 🩷💖💞💗
   </b></p>
+</div>
 
-  <audio controls loop style="width:90%;margin-top:15px;">
-    <source src="pelangi.mp3" type="audio/mpeg">
-  </audio>
 </div>
 
 <script>
-function cek(){
-  if(document.getElementById("pw").value==="10-12-2025"){
-    document.getElementById("pass").classList.remove("active");
-    document.getElementById("p1").classList.add("active");
-  } else {
+let current=0;
+
+function unlock(){
+  if(pw.value==="10-12-2025"){
+    flip(0);
+    music.play();
+  }else{
     alert("Password salah 😭");
   }
 }
 
-function next(n){
-  document.getElementById("p"+n).classList.remove("active");
-  document.getElementById("p"+(n+1)).classList.add("active");
+function flip(n){
+  document.getElementById("page"+n).classList.add("flipped");
 }
 
 setInterval(()=>{
   let h=document.createElement("div");
   h.className="heart";
+  h.innerHTML="💗";
   h.style.left=Math.random()*100+"vw";
   h.style.animationDuration=(3+Math.random()*3)+"s";
-  h.innerHTML="💗";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),6000);
 },300);
