@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Love Story</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(180deg, #ffd6e8, #ffeef5);
+      overflow-x: hidden;
+      text-align: center;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+      position: relative;
+    }
+
+    .page.active {
+      display: flex;
+    }
+
+    h1 {
+      color: #ff4f8b;
+    }
+
+    p {
+      color: #444;
+      max-width: 500px;
+      font-size: 16px;
+    }
+
+    img {
+      width: 250px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      margin: 15px 0;
+    }
+
+    button {
+      padding: 10px 25px;
+      background: #ff6fa5;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background: #ff4f8b;
+    }
+
+    .heart {
+      position: absolute;
+      color: pink;
+      font-size: 20px;
+      animation: float 6s infinite ease-in;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 1; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<audio id="bgm" src="pelangi.mp3" autoplay loop></audio>
+
+<div class="page active" id="page1">
+  <h1>Our Love Story</h1>
+  <p>Abiyyy & Hannyyy 💞</p>
+  <button onclick="nextPage()">Next</button>
+</div>
+
+<div class="page" id="page2">
+  <h1>Foto Kita 💖</h1>
+  <img src="foto1.jpg" alt="Foto kita">
+  <button onclick="nextPage()">Next</button>
+</div>
+
+<div class="page" id="page3">
+  <h1>For You 🩷</h1>
+  <p>
+    I always love you no matter what the condition is,<br>
+    i love you in every universe,<br>
+    and i loveeee youuu forever,<br>
+    I SEE YOU 💖💞💗
+  </p>
+  <button onclick="nextPage()">Finish</button>
+</div>
+
+<script>
+  let current = 1;
+  const total = 3;
+
+  function nextPage() {
+    document.getElementById('page' + current).classList.remove('active');
+    current++;
+    if (current <= total) {
+      document.getElementById('page' + current).classList.add('active');
+    }
+  }
+
+  // hearts
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 400);
+</script>
+
+</body>
+</html>
